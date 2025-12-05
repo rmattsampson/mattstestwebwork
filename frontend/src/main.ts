@@ -210,20 +210,6 @@ async function init(): Promise<void> {
   }
   
   renderSatellites();
-  
-  // Refresh every 10 seconds
-  setInterval(async () => {
-    const updated = await fetchSatellites(currentLat, currentLon, currentCategory);
-    allSatellites = updated.satellites;
-    
-    if (updated.error && updated.usingMockData) {
-      showErrorBanner(updated.error);
-    } else {
-      hideErrorBanner();
-    }
-    
-    renderSatellites();
-  }, 10000);
 }
 
 init();
