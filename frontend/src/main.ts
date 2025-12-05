@@ -19,14 +19,16 @@ let pageSize = 10;
 let currentLat = 38.9;
 let currentLon = -77.0;
 let currentCategory = '';
-let apiError: string | null = null;
+
+// Backend API URL - update this when you deploy backend to production
+const BACKEND_URL = 'http://localhost:3000';
 
 async function fetchSatellites(lat: number, lon: number, category: string): Promise<SatelliteResponse> {
   try {
     const params = new URLSearchParams({ lat: lat.toString(), lon: lon.toString() });
     if (category) params.append('category', category);
     
-    const response = await fetch(`http://localhost:3000/api/satellites?${params}`);
+    const response = await fetch(`${BACKEND_URL}/api/satellites?${params}`);
     if (!response.ok) throw new Error('Failed to fetch satellites');
     return await response.json();
   } catch (error) {
@@ -89,7 +91,7 @@ function updateControls(): void {
 
 async function fetchLocationName(lat: number, lon: number): Promise<string> {
   try {
-    const response = await fetch(`http://localhost:3000/api/location?lat=${lat}&lon=${lon}`);
+    const response = await fetch(`${BACKEND_URL}/api/location?lat=${lat}&lon=${lon}`);
     if (!response.ok) return `${lat.toFixed(2)}°, ${lon.toFixed(2)}°`;
     const data = await response.json();
     return data.location;
