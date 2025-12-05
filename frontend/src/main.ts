@@ -20,8 +20,8 @@ let currentLat = 38.9;
 let currentLon = -77.0;
 let currentCategory = '';
 
-// Backend API URL - update this when you deploy backend to production
-const BACKEND_URL = 'http://localhost:3000';
+// Backend API URL - Lambda API Gateway
+const BACKEND_URL = 'https://byo5l62d71.execute-api.us-east-2.amazonaws.com/prod';
 
 async function fetchSatellites(lat: number, lon: number, category: string): Promise<SatelliteResponse> {
   try {
